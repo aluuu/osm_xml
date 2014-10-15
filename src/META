@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: d3233c8cb8bfd3a16797137e7b1821c3)
+version = "0.0.1"
+description = "OSM XML parsing library"
+archive(byte) = "OSM.cma"
+archive(byte, plugin) = "OSM.cma"
+archive(native) = "OSM.cmxa"
+archive(native, plugin) = "OSM.cmxs"
+exists_if = "OSM.cma"
+# OASIS_STOP
+
