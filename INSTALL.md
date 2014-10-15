@@ -1,6 +1,3 @@
-(* OASIS_START *)
-(* DO NOT EDIT (digest: aa6453cbbe5e79a9e3bbb2f2c90ebcf1) *)
-
 This is the INSTALL file for the OSM distribution.
 
 This package uses OASIS to generate its build system. See section OASIS for
@@ -35,5 +32,3 @@ OASIS
 OASIS is a program that generates a setup.ml file using a simple '_oasis'
 configuration file. The generated setup only depends on the standard OCaml
 installation: no additional library is required.
-
-(* OASIS_STOP *)
