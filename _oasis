@@ -4,7 +4,7 @@ Version:     0.0.1
 Synopsis:    OSM XML parsing library
 Authors:     Alexander Dinu
 License:     BSD-3-clause
-Plugins:     META (0.4), StdFiles (0.4), DevFiles (0.4)
+Plugins:     META (0.4), DevFiles (0.4)
 
 Library "OSM"
   Path:       src
