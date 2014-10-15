@@ -1,0 +1,28 @@
+OASISFormat: 0.4
+Name:        OSM
+Version:     0.0.1
+Synopsis:    OSM XML parsing library
+Authors:     Alexander Dinu
+License:     BSD-3-clause
+Plugins:     META (0.4), StdFiles (0.4), DevFiles (0.4)
+
+Library "OSM"
+  Path:       src
+  Modules: OSM
+  BuildTools: ocamlbuild
+  BuildDepends: threads, core
+
+Executable "test_osm"
+  Path: test
+  MainIs: test_osm.ml
+  Build$: flag(tests)
+  CompiledObject: best
+  Install: false
+  BuildDepends: OSM, oUnit
+  BuildTools: ocamlbuild
+
+Test "test"
+  Run$: flag(tests)
+  TestTools: test_osm
+  Command: $test_osm
+  WorkingDirectory: test
