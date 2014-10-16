@@ -10,7 +10,7 @@ Library "OSM"
   Path:       src
   Modules: OSM
   BuildTools: ocamlbuild
-  BuildDepends: threads, core
+  BuildDepends: threads, core, xmlm
 
 Executable "test_osm"
   Path: test
