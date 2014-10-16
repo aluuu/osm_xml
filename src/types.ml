@@ -1,9 +1,8 @@
 open Core.Std
 
-module StringMap = Map.Make (String)
-
-
 type osm_id = OSMId of string
+
+module StringMap = Map.Make (String)
 
 type osm_tags = string StringMap.t
 
@@ -48,8 +47,33 @@ type osm_relation = OSMRelation of osm_relation_t
   id: osm_id;
 }
 
-type osm = {
-  nodes: osm_node OSMMap.t;
-  ways: osm_way OSMMap.t;
-  relations: osm_relation OSMMap.t
-}
+type osm = OSM of osm_t
+ and osm_t = {
+   nodes: osm_node OSMMap.t;
+   ways: osm_way OSMMap.t;
+   relations: osm_relation OSMMap.t
+ }
+
+type osm_feature = OSMNode of osm_node_t |
+                   OSMWay of osm_way_t |
+                   OSMRelation of osm_relation_t
+
+let empty_osm =
+  OSM {nodes=OSMMap.empty;
+       ways=OSMMap.empty;
+       relations=OSMMap.empty}
+
+let add_to_osm (OSM osm) element =
+  match element with
+  | (OSMNode node) ->
+     OSM {nodes=OSMMap.add osm.nodes node.id (OSMNode node);
+          ways=osm.ways;
+          relations=osm.relations}
+  | (OSMWay way) ->
+     OSM {nodes=osm.nodes;
+          ways=OSMMap.add osm.ways way.id (OSMWay way);
+           relations=osm.relations}
+  | (OSMRelation relation) ->
+     OSM {nodes=osm.nodes;
+          ways=osm.ways;
+          relations=OSMMap.add osm.relations relation.id (OSMRelation relation)}
