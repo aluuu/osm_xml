@@ -43,7 +43,6 @@ let test_parse_way () =
                Maybe you're using `parse_node` or `parse_relation`."
   | None ->
      failwith "Wrong fixture was given to `parse_way`."
-  ()
 
 let test_parse_relation () =
   let xml_input = create_xml_input relation_example in
@@ -69,11 +68,14 @@ let test_parse_relation () =
                Maybe you're using `parse_node` or `parse_way`."
   | None ->
      failwith "Wrong fixture was given to `parse_relation`."
-  ()
+
 
 let test_parse_file () =
-  let _ = Parser.parse_file "./samples/test.xml" in
-  ()
+  let OSM osm = Parser.parse_file "./samples/RU-TY.cutted.osm" in
+  assert_equal (OSMMap.length osm.nodes) 12;
+  assert_equal (OSMMap.length osm.ways) 24;
+  assert_equal (OSMMap.length osm.relations) 6
+
 
 let test =
   "Parser" >::: [
