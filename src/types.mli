@@ -47,9 +47,23 @@ type osm_way = OSMWay of osm_way_t
   nodes: osm_id list;
 }
 
+type osm_relation_member = OSMRelationMember of osm_relation_member_t
+ and osm_relation_member_t = {
+   ref: osm_id;
+   type_: string;
+   role: string
+}
+
 type osm_relation = OSMRelation of osm_relation_t
  and osm_relation_t = {
   id: osm_id;
+  version: string;
+  changeset: string;
+  user: string;
+  uid: string;
+  timestamp: string;
+  tags: osm_tags;
+  members: osm_relation_member list
 }
 
 type osm = OSM of osm_t
