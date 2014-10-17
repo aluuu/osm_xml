@@ -49,7 +49,28 @@ let test_parse_way () =
 
 let test_parse_relation () =
   let xml_input = create_xml_input relation_example in
-  let Some (OSMRelation relation) = Parser.parse_relation xml_input in
+  let result = Parser.parse_relation xml_input in
+  match result with
+  | Some (OSMRelation relation) ->
+     assert_equal relation.id (OSMId "3961709");
+     assert_equal relation.user "Xmypblu";
+     assert_equal relation.changeset "24761364";
+     assert_equal (find_tag relation.tags "admin_level") (Some "8");
+     assert_equal (find_tag relation.tags "type") (Some "boundary");
+     assert_equal (List.length relation.members) 8;
+     assert_equal (List.hd relation.members)
+                  (Some (OSMRelationMember {type_="way";
+                                            ref=OSMId "297850757";
+                                            role="outer"}));
+     assert_equal (List.last relation.members)
+                  (Some (OSMRelationMember {type_="node";
+                                            ref=OSMId "452094096";
+                                            role="admin_centre"}))
+  | Some _ ->
+     failwith "Wrong parser was given for this fixture.
+               Maybe you're using `parse_node` or `parse_way`."
+  | None ->
+     failwith "Wrong fixture was given to `parse_relation`."
   ()
 
 let test_parse_file () =
