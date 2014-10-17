@@ -6,6 +6,12 @@ module StringMap = Map.Make (String)
 
 type osm_tags = string StringMap.t
 
+let empty_tags = StringMap.empty
+
+let add_tag tags key value= StringMap.add tags key value
+
+let find_tag tags key = StringMap.find tags key
+
 module OSMId_S = struct
   type t = osm_id
   let compare = fun (OSMId a) (OSMId b) -> String.compare a b

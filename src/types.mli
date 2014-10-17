@@ -4,6 +4,12 @@ module StringMap: Core.Std.Map.S
 
 type osm_tags = string StringMap.t
 
+val empty_tags: osm_tags
+
+val add_tag: osm_tags -> string -> string -> osm_tags
+
+val find_tag: osm_tags -> string -> string option
+
 module OSMId_S :
   sig
     type t = osm_id
