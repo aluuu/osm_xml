@@ -79,29 +79,63 @@ let parse_way xml_input =
   | _ -> None
 
 let parse_relation xml_input =
-  failwith "not implemented"
 
-let handle_xml_element xml_input =
+  let parse_members xml_children =
+    let parse_member members xml_child = match xml_child with
+      | XMLElement (((_, "member"), attrs), children) ->
+         let type_ = (required_attr attrs "type") in
+         let osm_id = (required_attr attrs "ref") in
+         let role = (required_attr attrs "role") in
+         let member = OSMRelationMember {ref=OSMId osm_id;
+                                         type_=type_;
+                                         role=role} in
+         member :: members
+      | _ -> members in
+    List.fold_left xml_children ~init:[] ~f:parse_member |> List.rev in
+
+  match (input_tree xml_input) with
+  | XMLElement (tag, children) ->
+     let _, attrs = tag in
+     let tags = parse_tags children in
+     let members = parse_members children in
+     let lookup_attr = required_attr attrs in
+     let relation = OSMRelation {
+                        id=OSMId (lookup_attr "id");
+                        version=lookup_attr "version";
+                        changeset=lookup_attr "changeset";
+                        user=lookup_attr "user";
+                        uid=lookup_attr "uid";
+                        timestamp=lookup_attr "timestamp";
+                        tags=tags;
+                        members=members} in
+     Some relation
+  | _ -> None
+
+let parse_feature xml_input =
   match (Xmlm.peek xml_input) with
   | `El_start ((_, tag_name), _) ->
      (match tag_name with
       | "node" -> parse_node xml_input
       | "way" -> parse_way xml_input
       | "relation" -> parse_relation xml_input
-      | _ -> None)
+      | _ ->
+         ignore (Xmlm.input xml_input);
+         None)
   | _ ->
      ignore (Xmlm.input xml_input);
      None
 
 let parse_file filename =
+
   let rec parse_file_helper xml_input osm =
     match Xmlm.eoi xml_input with
       | true -> osm
       | false ->
-         let new_osm = match handle_xml_element xml_input with
+         let new_osm = match parse_feature xml_input with
            | Some a -> add_to_osm osm a
            | None -> osm in
          parse_file_helper xml_input new_osm in
+
   let in_chan = open_in filename in
   try
     let xml_input = Xmlm.make_input (`Channel in_chan) in
