@@ -45,7 +45,6 @@ let parse_node xml_input =
                     changeset=lookup_attr "changeset";
                     user=lookup_attr "user";
                     uid=lookup_attr "uid";
-                    visible=(String.equal (lookup_attr "visible") "true");
                     timestamp=lookup_attr "timestamp";
                     tags=tags} in
      Some node
@@ -73,7 +72,6 @@ let parse_way xml_input =
                    changeset=lookup_attr "changeset";
                    user=lookup_attr "user";
                    uid=lookup_attr "uid";
-                   visible=(String.equal (lookup_attr "visible") "true");
                    timestamp=lookup_attr "timestamp";
                    tags=tags;
                    nodes=nds} in

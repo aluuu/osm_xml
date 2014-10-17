@@ -30,7 +30,6 @@ type osm_node = OSMNode of osm_node_t
   changeset: string;
   user: string;
   uid: string;
-  visible: bool;
   timestamp: string;
   tags: osm_tags;
 }
@@ -42,7 +41,6 @@ type osm_way = OSMWay of osm_way_t
   changeset: string;
   user: string;
   uid: string;
-  visible: bool;
   timestamp: string;
   tags: osm_tags;
   nodes: osm_id list;

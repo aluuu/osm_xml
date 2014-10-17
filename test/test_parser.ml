@@ -17,7 +17,6 @@ let test_parse_node () =
   | Some (OSMNode node) ->
      assert_equal node.id (OSMId "25496583");
      assert_equal node.user "80n";
-     assert_equal node.visible true;
      assert_equal node.latitude 51.5173639;
      assert_equal node.longitude (-. 0.140043);
      assert_equal (find_tag node.tags "highway") (Some "traffic_signals")
@@ -34,7 +33,6 @@ let test_parse_way () =
   | Some (OSMWay way) ->
      assert_equal way.id (OSMId "5090250");
      assert_equal way.user "Blumpsy";
-     assert_equal way.visible true;
      assert_equal (find_tag way.tags "highway") (Some "residential");
      assert_equal (find_tag way.tags "oneway") (Some "yes");
      assert_equal (List.length way.nodes) 10;
