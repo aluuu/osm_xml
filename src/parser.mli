@@ -14,8 +14,6 @@ val parse_way: Xmlm.input -> Types.osm_feature option
 
 val parse_relation: Xmlm.input -> Types.osm_feature option
 
-val parse_tags: Xmlm.input -> Types.osm_tags option
-
 val handle_xml_element: Xmlm.input -> Types.osm_feature option
 
 val parse_file: string -> Types.osm

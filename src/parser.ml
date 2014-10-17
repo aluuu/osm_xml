@@ -83,9 +83,6 @@ let parse_way xml_input =
 let parse_relation xml_input =
   failwith "not implemented"
 
-let parse_tags xml_input =
-  failwith "not implemented"
-
 let handle_xml_element xml_input =
   match (Xmlm.peek xml_input) with
   | `El_start ((_, tag_name), _) ->
