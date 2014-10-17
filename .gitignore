@@ -1,4 +1,5 @@
-_build
-_tags
-setup.data
-setup.log
+/_build
+/_tags
+/setup.data
+/setup.log
+/test_osm.*
