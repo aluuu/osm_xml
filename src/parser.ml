@@ -22,10 +22,20 @@ let required_attr attrs attr =
   | Some v -> v
   | None -> failwith "Cannot find required tag attribute"
 
+let parse_tags xml_children =
+  let parse_tag tags xml_child = match xml_child with
+    | XMLElement (((_, "tag"), attrs), children) ->
+       let k = (required_attr attrs "k") in
+       let v = (required_attr attrs "v") in
+       (add_tag tags k v)
+    | _ -> tags in
+  List.fold_left xml_children ~init:empty_tags ~f:parse_tag
+
 let parse_node xml_input =
   match (input_tree xml_input) with
   | XMLElement (tag, children) ->
      let _, attrs = tag in
+     let tags = parse_tags children in
      let lookup_attr = required_attr attrs in
      let node = OSMNode {
                     id=OSMId (lookup_attr "id");
@@ -37,7 +47,7 @@ let parse_node xml_input =
                     uid=lookup_attr "uid";
                     visible=(String.equal (lookup_attr "visible") "true");
                     timestamp=lookup_attr "timestamp";
-                    tags=StringMap.empty} in
+                    tags=tags} in
      Some node
   | _ -> None
 
