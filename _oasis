@@ -5,23 +5,23 @@ Synopsis:    OSM XML parsing library
 Authors:     Alexander Dinu
 License:     BSD-3-clause
 Plugins:     META (0.4), DevFiles (0.4)
+BuildTools:  ocamlbuild
 
-Library "OSM"
-  Path:       src
-  Modules: OSM
-  BuildTools: ocamlbuild
+Library OSM
+  Path: src
+  Pack: true
+  Modules: Types, Parser
   BuildDepends: threads, core, xmlm
 
-Executable "test_osm"
+Executable test_osm
   Path: test
   MainIs: test_osm.ml
   Build$: flag(tests)
   CompiledObject: best
   Install: false
   BuildDepends: OSM, oUnit
-  BuildTools: ocamlbuild
 
-Test "test"
+Test test
   Run$: flag(tests)
   TestTools: test_osm
   Command: $test_osm

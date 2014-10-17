@@ -1,6 +1,6 @@
 open Core.Std
-open OSM
-open Types
+open OSM.Parser
+open OSM.Types
 open OUnit
 open Fixture_parser
 
@@ -12,7 +12,7 @@ let create_xml_input str =
 
 let test_parse_node () =
   let xml_input = create_xml_input node_example in
-  let result = Parser.parse_node xml_input in
+  let result = parse_node xml_input in
   match result with
   | Some (OSMNode node) ->
      assert_equal node.id (OSMId "25496583");
@@ -28,7 +28,7 @@ let test_parse_node () =
 
 let test_parse_way () =
   let xml_input = create_xml_input way_example in
-  let result = Parser.parse_way xml_input in
+  let result = parse_way xml_input in
   match result with
   | Some (OSMWay way) ->
      assert_equal way.id (OSMId "5090250");
@@ -46,7 +46,7 @@ let test_parse_way () =
 
 let test_parse_relation () =
   let xml_input = create_xml_input relation_example in
-  let result = Parser.parse_relation xml_input in
+  let result = parse_relation xml_input in
   match result with
   | Some (OSMRelation relation) ->
      assert_equal relation.id (OSMId "3961709");
@@ -71,7 +71,7 @@ let test_parse_relation () =
 
 
 let test_parse_file () =
-  let OSM osm = Parser.parse_file "./samples/RU-TY.cutted.osm" in
+  let OSM osm = parse_file "./samples/RU-TY.cutted.osm" in
   assert_equal (OSMMap.length osm.nodes) 12;
   assert_equal (OSMMap.length osm.ways) 24;
   assert_equal (OSMMap.length osm.relations) 6
