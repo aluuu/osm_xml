@@ -20,16 +20,31 @@ let test_parse_node () =
      assert_equal node.visible true;
      assert_equal node.latitude 51.5173639;
      assert_equal node.longitude (-. 0.140043);
-     assert_equal (find_tag node.tags "highway")
-                  (Some "traffic_signals")
+     assert_equal (find_tag node.tags "highway") (Some "traffic_signals")
   | Some _ ->
      failwith "Wrong parser was given for this fixture.
-               Maybe, `parse_way` or `parse_relation` was used."
-  | None -> failwith "Wrong fixture was given to parse_node."
+               Maybe you're using `parse_way` or `parse_relation`."
+  | None ->
+     failwith "Wrong fixture was given to `parse_node`."
 
 let test_parse_way () =
   let xml_input = create_xml_input way_example in
-  let Some (OSMWay way) = Parser.parse_way xml_input in
+  let result = Parser.parse_way xml_input in
+  match result with
+  | Some (OSMWay way) ->
+     assert_equal way.id (OSMId "5090250");
+     assert_equal way.user "Blumpsy";
+     assert_equal way.visible true;
+     assert_equal (find_tag way.tags "highway") (Some "residential");
+     assert_equal (find_tag way.tags "oneway") (Some "yes");
+     assert_equal (List.length way.nodes) 10;
+     assert_equal (List.hd way.nodes) (Some (OSMId "822403"));
+     assert_equal (List.last way.nodes) (Some (OSMId "823771"))
+  | Some _ ->
+     failwith "Wrong parser was given for this fixture.
+               Maybe you're using `parse_node` or `parse_relation`."
+  | None ->
+     failwith "Wrong fixture was given to `parse_way`."
   ()
 
 let test_parse_relation () =
