@@ -52,7 +52,33 @@ let parse_node xml_input =
   | _ -> None
 
 let parse_way xml_input =
-  failwith "not implemented"
+
+  let parse_nds xml_children =
+    let parse_nd nds xml_child = match xml_child with
+      | XMLElement (((_, "nd"), attrs), children) ->
+         let osm_id = (required_attr attrs "ref") in
+         OSMId osm_id :: nds
+      | _ -> nds in
+    List.fold_left xml_children ~init:[] ~f:parse_nd |> List.rev in
+
+  match (input_tree xml_input) with
+  | XMLElement (tag, children) ->
+     let _, attrs = tag in
+     let tags = parse_tags children in
+     let nds = parse_nds children in
+     let lookup_attr = required_attr attrs in
+     let way = OSMWay {
+                   id=OSMId (lookup_attr "id");
+                   version=lookup_attr "version";
+                   changeset=lookup_attr "changeset";
+                   user=lookup_attr "user";
+                   uid=lookup_attr "uid";
+                   visible=(String.equal (lookup_attr "visible") "true");
+                   timestamp=lookup_attr "timestamp";
+                   tags=tags;
+                   nodes=nds} in
+     Some way
+  | _ -> None
 
 let parse_relation xml_input =
   failwith "not implemented"
