@@ -77,10 +77,33 @@ let test_parse_file () =
   assert_equal (OSMMap.length osm.relations) 6
 
 
+let test_parse_file_wo_ways () =
+  let parse_opts = ParseOptions {parse_nodes=true;
+                                 parse_ways=false;
+                                 parse_relations=true} in
+  let OSM osm = parse_file ~parse_opts:parse_opts
+                           "./samples/RU-TY.cutted.osm" in
+  assert_equal (OSMMap.length osm.nodes) 12;
+  assert_equal (OSMMap.length osm.ways) 0;
+  assert_equal (OSMMap.length osm.relations) 6
+
+let test_parse_file_only_ways () =
+  let parse_opts = ParseOptions {parse_nodes=false;
+                                 parse_ways=true;
+                                 parse_relations=false} in
+  let OSM osm = parse_file ~parse_opts:parse_opts
+                           "./samples/RU-TY.cutted.osm" in
+  assert_equal (OSMMap.length osm.nodes) 0;
+  assert_equal (OSMMap.length osm.ways) 24;
+  assert_equal (OSMMap.length osm.relations) 0
+
+
 let test =
   "Parser" >::: [
     "parse node" >:: test_parse_node;
     "parse way" >:: test_parse_way;
     "parse relation" >:: test_parse_relation;
     "parse file" >:: test_parse_file;
+    "parse file (without ways)" >:: test_parse_file_wo_ways;
+    "parse file (only ways)" >:: test_parse_file_only_ways;
   ];;
