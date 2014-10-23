@@ -4,6 +4,18 @@ open Xmlm
 
 type xml_tree = XMLElement of Xmlm.tag * xml_tree list | XMLData of string
 
+type parse_options = ParseOptions of parse_options_t
+ and parse_options_t = {
+   parse_nodes: bool;
+   parse_ways: bool;
+   parse_relations: bool
+ }
+
+let default_parse_opts =
+  ParseOptions {parse_nodes=true;
+                parse_ways=true;
+                parse_relations=true}
+
 let input_tree xml_input =
   let el tag children = XMLElement (tag, children) in
   let data d = XMLData d in
@@ -111,13 +123,17 @@ let parse_relation xml_input =
      Some relation
   | _ -> None
 
-let parse_feature xml_input =
+let parse_feature (ParseOptions
+                     {parse_nodes=parse_nodes;
+                      parse_ways=parse_ways;
+                      parse_relations=parse_relations})
+                  xml_input =
   match (Xmlm.peek xml_input) with
   | `El_start ((_, tag_name), _) ->
      (match tag_name with
-      | "node" -> parse_node xml_input
-      | "way" -> parse_way xml_input
-      | "relation" -> parse_relation xml_input
+      | "node" when parse_nodes -> parse_node xml_input
+      | "way" when parse_ways -> parse_way xml_input
+      | "relation" when parse_relations -> parse_relation xml_input
       | _ ->
          ignore (Xmlm.input xml_input);
          None)
@@ -125,25 +141,13 @@ let parse_feature xml_input =
      ignore (Xmlm.input xml_input);
      None
 
-type parse_options = ParseOptions of parse_options_t
- and parse_options_t = {
-   parse_nodes: bool;
-   parse_ways: bool;
-   parse_relations: bool
- }
-
-let default_parse_opts =
-  ParseOptions {parse_nodes=true;
-                parse_ways=true;
-                parse_relations=true}
-
-let parse_file filename =
+let parse_file ?parse_opts:(parse_opts=default_parse_opts) filename =
 
   let rec parse_file_helper xml_input osm =
     match Xmlm.eoi xml_input with
       | true -> osm
       | false ->
-         let new_osm = match parse_feature xml_input with
+         let new_osm = match parse_feature parse_opts xml_input with
            | Some a -> add_to_osm osm a
            | None -> osm in
          parse_file_helper xml_input new_osm in
