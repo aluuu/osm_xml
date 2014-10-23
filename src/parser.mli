@@ -16,4 +16,13 @@ val parse_relation: Xmlm.input -> Types.osm_feature option
 
 val parse_feature: Xmlm.input -> Types.osm_feature option
 
+type parse_options = ParseOptions of parse_options_t
+ and parse_options_t = {
+   parse_nodes: bool;
+   parse_ways: bool;
+   parse_relations: bool
+ }
+
+val default_parse_opts: parse_options
+
 val parse_file: string -> Types.osm

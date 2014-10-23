@@ -125,6 +125,18 @@ let parse_feature xml_input =
      ignore (Xmlm.input xml_input);
      None
 
+type parse_options = ParseOptions of parse_options_t
+ and parse_options_t = {
+   parse_nodes: bool;
+   parse_ways: bool;
+   parse_relations: bool
+ }
+
+let default_parse_opts =
+  ParseOptions {parse_nodes=true;
+                parse_ways=true;
+                parse_relations=true}
+
 let parse_file filename =
 
   let rec parse_file_helper xml_input osm =
