@@ -74,8 +74,10 @@ let test_parse_file () =
   let OSM osm = parse_file "./samples/RU-TY.cutted.osm" in
   assert_equal (OSMMap.length osm.nodes) 12;
   assert_equal (OSMMap.length osm.ways) 24;
-  assert_equal (OSMMap.length osm.relations) 6
-
+  assert_equal (OSMMap.length osm.relations) 6;
+  let osm_id = (OSMId "137081446") in
+  let ((OSMNode node) : osm_node) = (OSMMap.find_exn osm.nodes osm_id) in
+  assert_equal node.id osm_id
 
 let test_parse_file_wo_ways () =
   let parse_opts = ParseOptions {parse_nodes=true;
