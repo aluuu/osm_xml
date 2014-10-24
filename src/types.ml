@@ -12,12 +12,13 @@ let add_tag tags key value= StringMap.add tags key value
 
 let find_tag tags key = StringMap.find tags key
 
-module OSMId_S = struct
-  type t = osm_id
-  let compare = fun (OSMId a) (OSMId b) -> String.compare a b
-  let sexp_of_t = fun (OSMId a) -> String.sexp_of_t a
-  let t_of_sexp = fun a -> OSMId (String.t_of_sexp a)
-end
+module OSMId_S =
+  struct
+    type t = osm_id
+    let compare = fun (OSMId a) (OSMId b) -> String.compare a b
+    let sexp_of_t = fun (OSMId a) -> String.sexp_of_t a
+    let t_of_sexp = fun a -> OSMId (String.t_of_sexp a)
+  end
 
 module OSMMap = Map.Make (OSMId_S)
 

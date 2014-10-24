@@ -1,3 +1,5 @@
+open Core.Std
+
 type osm_id = OSMId of string
 
 module StringMap: Core.Std.Map.S
