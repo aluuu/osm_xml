@@ -12,15 +12,12 @@ val add_tag: osm_tags -> string -> string -> osm_tags
 
 val find_tag: osm_tags -> string -> string option
 
-module OSMId_S :
-  sig
-    type t = osm_id
-    val compare : osm_id -> osm_id -> int
-    val sexp_of_t : osm_id -> Sexplib.Sexp.t
-    val t_of_sexp : Sexplib.Sexp.t -> osm_id
-  end
+module OSMId_Comparator: Comparator.S
+       with type t = osm_id
 
 module OSMMap: Core.Std.Map.S
+       with type Key.t = OSMId_Comparator.t
+       with type Key.comparator_witness = OSMId_Comparator.comparator_witness
 
 type osm_node = OSMNode of osm_node_t
  and osm_node_t = {
