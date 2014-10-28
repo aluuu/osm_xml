@@ -17,12 +17,12 @@ val required_attr: Xmlm.attribute list -> string -> string
 
 val parse_tags: xml_tree list -> Types.osm_tags
 
-val parse_node: Xmlm.input -> Types.osm_feature option
+val parse_node: Xmlm.input -> Types.osm_node option
 
-val parse_way: Xmlm.input -> Types.osm_feature option
+val parse_way: Xmlm.input -> Types.osm_way option
 
-val parse_relation: Xmlm.input -> Types.osm_feature option
+val parse_relation: Xmlm.input -> Types.osm_relation option
 
-val parse_feature: parse_options -> Xmlm.input -> Types.osm_feature option
+val parse_feature: Types.osm -> parse_options -> Xmlm.input -> Types.osm
 
 val parse_file: ?parse_opts:(parse_options) -> string -> Types.osm

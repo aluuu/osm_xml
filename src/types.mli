@@ -70,10 +70,4 @@ type osm = OSM of osm_t
    relations: osm_relation OSMMap.t
  }
 
-type osm_feature = OSMNode of osm_node_t |
-                   OSMWay of osm_way_t |
-                   OSMRelation of osm_relation_t
-
 val empty_osm: osm
-
-val add_to_osm: osm -> osm_feature -> osm
