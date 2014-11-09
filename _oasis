@@ -1,5 +1,5 @@
 OASISFormat: 0.4
-Name:        OSM
+Name:        osm
 Version:     0.0.1
 Synopsis:    OSM XML parsing library
 Authors:     Alexander Dinu
@@ -7,7 +7,7 @@ License:     BSD-3-clause
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:  ocamlbuild
 
-Library OSM
+Library osm
   Path: src
   Pack: true
   Modules: Types, Parser
@@ -19,7 +19,7 @@ Executable test_osm
   Build$: flag(tests)
   CompiledObject: best
   Install: false
-  BuildDepends: OSM, oUnit
+  BuildDepends: osm, oUnit
 
 Test test
   Run$: flag(tests)

@@ -1,6 +1,6 @@
 open Core.Std
-open OSM.Parser
-open OSM.Types
+open Osm.Parser
+open Osm.Types
 open OUnit
 open Fixture_parser
 
