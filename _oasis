@@ -6,6 +6,7 @@ Authors:     Alexander Dinu
 License:     BSD-3-clause
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:  ocamlbuild
+AlphaFeatures: ocamlbuild_more_args
 
 Library osm
   Path: src
@@ -26,3 +27,12 @@ Test test
   TestTools: test
   Command: $test
   WorkingDirectory: test
+
+Document "api-osm"
+  Title: API reference for Osm
+  Type: ocamlbuild (0.3)
+  InstallDir: $htmldir/osm
+  BuildTools+: ocamldoc
+  XOCamlbuildPath: src/
+  XOCamlbuildLibraries: osm
+  XOCamlbuildExtraArgs: -docflags -thread,-css-style,./../doc/style.css

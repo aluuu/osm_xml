@@ -1,5 +1,12 @@
+(** OSM XML Parser module.
+    For given file returns value of Types.OSM type.
+*)
+
 type xml_tree = XMLElement of Xmlm.tag * xml_tree list | XMLData of string
 
+(** Parser options. You can specify what type of OSM objects to skip
+    during parsing process (nodes, ways or relations).
+*)
 type parse_options = ParseOptions of parse_options_t
  and parse_options_t = {
    parse_nodes: bool;
@@ -26,3 +33,4 @@ val parse_relation: Xmlm.input -> Types.osm_relation option
 val parse_feature: Types.osm -> parse_options -> Xmlm.input -> Types.osm
 
 val parse_file: ?parse_opts:(parse_options) -> string -> Types.osm
+(** Parse file with given options and filename *)
