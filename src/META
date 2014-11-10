@@ -1,11 +1,12 @@
 # OASIS_START
-# DO NOT EDIT (digest: d3233c8cb8bfd3a16797137e7b1821c3)
+# DO NOT EDIT (digest: 8492a6576655ac99dbb2da08e98d9421)
 version = "0.0.1"
 description = "OSM XML parsing library"
-archive(byte) = "OSM.cma"
-archive(byte, plugin) = "OSM.cma"
-archive(native) = "OSM.cmxa"
-archive(native, plugin) = "OSM.cmxs"
-exists_if = "OSM.cma"
+requires = "threads core xmlm"
+archive(byte) = "osm.cma"
+archive(byte, plugin) = "osm.cma"
+archive(native) = "osm.cmxa"
+archive(native, plugin) = "osm.cmxs"
+exists_if = "osm.cma"
 # OASIS_STOP
 
