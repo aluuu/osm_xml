@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="Types.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Types" rel="Chapter" href="Types.html">
+<link title="Parser" rel="Chapter" href="Parser.html"><title>Parser</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="Types.html" title="Types">Previous</a>
+&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_Parser.html">Parser</a></h1>
+
+<pre><span class="keyword">module</span> Parser: <code class="code">sig</code> <a href="Parser.html">..</a> <code class="code">end</code></pre><div class="info module top">
+OSM XML Parser module.
+    For given file returns value of Types.OSM type.<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPExml_tree"><span class="keyword">type</span> <code class="type"></code>xml_tree</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTxml_tree.XMLElement"><span class="constructor">XMLElement</span></span> <span class="keyword">of</span> <code class="type">Xmlm.tag * <a href="Parser.html#TYPExml_tree">xml_tree</a> list</code></code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTxml_tree.XMLData"><span class="constructor">XMLData</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEparse_options"><span class="keyword">type</span> <code class="type"></code>parse_options</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparse_options.ParseOptions"><span class="constructor">ParseOptions</span></span> <span class="keyword">of</span> <code class="type"><a href="Parser.html#TYPEparse_options_t">parse_options_t</a></code></code></td>
+
+</tr></table>
+
+<div class="info ">
+Parser options. You can specify what type of OSM objects to skip
+    during parsing process (nodes, ways or relations).<br>
+</div>
+
+
+<pre><code><span id="TYPEparse_options_t"><span class="keyword">type</span> <code class="type"></code>parse_options_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparse_options_t.parse_nodes">parse_nodes</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparse_options_t.parse_ways">parse_ways</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTparse_options_t.parse_relations">parse_relations</span>&nbsp;: <code class="type">bool</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALdefault_parse_opts"><span class="keyword">val</span> default_parse_opts</span> : <code class="type"><a href="Parser.html#TYPEparse_options">parse_options</a></code></pre>
+<pre><span id="VALinput_tree"><span class="keyword">val</span> input_tree</span> : <code class="type">Xmlm.input -> <a href="Parser.html#TYPExml_tree">xml_tree</a></code></pre>
+<pre><span id="VALfind_attr"><span class="keyword">val</span> find_attr</span> : <code class="type">Xmlm.attribute list -> string -> string option</code></pre>
+<pre><span id="VALrequired_attr"><span class="keyword">val</span> required_attr</span> : <code class="type">Xmlm.attribute list -> string -> string</code></pre>
+<pre><span id="VALparse_tags"><span class="keyword">val</span> parse_tags</span> : <code class="type"><a href="Parser.html#TYPExml_tree">xml_tree</a> list -> <a href="Types.html#TYPEosm_tags">Types.osm_tags</a></code></pre>
+<pre><span id="VALparse_node"><span class="keyword">val</span> parse_node</span> : <code class="type">Xmlm.input -> <a href="Types.html#TYPEosm_node">Types.osm_node</a> option</code></pre>
+<pre><span id="VALparse_way"><span class="keyword">val</span> parse_way</span> : <code class="type">Xmlm.input -> <a href="Types.html#TYPEosm_way">Types.osm_way</a> option</code></pre>
+<pre><span id="VALparse_relation"><span class="keyword">val</span> parse_relation</span> : <code class="type">Xmlm.input -> <a href="Types.html#TYPEosm_relation">Types.osm_relation</a> option</code></pre>
+<pre><span id="VALparse_feature"><span class="keyword">val</span> parse_feature</span> : <code class="type"><a href="Types.html#TYPEosm">Types.osm</a> -> <a href="Parser.html#TYPEparse_options">parse_options</a> -> Xmlm.input -> <a href="Types.html#TYPEosm">Types.osm</a></code></pre>
+<pre><span id="VALparse_file"><span class="keyword">val</span> parse_file</span> : <code class="type">?parse_opts:<a href="Parser.html#TYPEparse_options">parse_options</a> -> string -> <a href="Types.html#TYPEosm">Types.osm</a></code></pre><div class="info ">
+Parse file with given options and filename<br>
+</div>
+</body></html>

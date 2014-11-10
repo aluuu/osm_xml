@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="Parser.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="Types" rel="Chapter" href="Types.html">
+<link title="Parser" rel="Chapter" href="Parser.html"><title>Types</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;<a class="post" href="Parser.html" title="Parser">Next</a>
+</div>
+<h1>Module <a href="type_Types.html">Types</a></h1>
+
+<pre><span class="keyword">module</span> Types: <code class="code">sig</code> <a href="Types.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Types of OSM objects<br>
+</div>
+<hr width="100%">
+
+<pre><code><span id="TYPEosm_id"><span class="keyword">type</span> <code class="type"></code>osm_id</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_id.OSMId"><span class="constructor">OSMId</span></span> <span class="keyword">of</span> <code class="type">string</code></code></td>
+
+</tr></table>
+
+
+
+<pre><span class="keyword">module</span> <a href="Types.StringMap.html">StringMap</a>: <code class="type">Core.Std.Map.S</code><code class="type"> </code></pre>
+<pre><span id="TYPEosm_tags"><span class="keyword">type</span> <code class="type"></code>osm_tags</span> = <code class="type">string StringMap.t</code> </pre>
+
+
+<pre><span id="VALempty_tags"><span class="keyword">val</span> empty_tags</span> : <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a></code></pre>
+<pre><span id="VALadd_tag"><span class="keyword">val</span> add_tag</span> : <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a> -> string -> string -> <a href="Types.html#TYPEosm_tags">osm_tags</a></code></pre>
+<pre><span id="VALfind_tag"><span class="keyword">val</span> find_tag</span> : <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a> -> string -> string option</code></pre>
+<pre><span class="keyword">module</span> <a href="Types.OSMId_Comparator.html">OSMId_Comparator</a>: <code class="type">Comparator.S</code><code class="type"> 
+       with type t = osm_id</code></pre>
+<pre><span class="keyword">module</span> <a href="Types.OSMMap.html">OSMMap</a>: <code class="type">Core.Std.Map.S</code><code class="type"> 
+       with type Key.t = OSMId_Comparator.t</code><code class="type"> 
+       with type Key.comparator_witness = OSMId_Comparator.comparator_witness</code></pre>
+<pre><code><span id="TYPEosm_node"><span class="keyword">type</span> <code class="type"></code>osm_node</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node.OSMNode"><span class="constructor">OSMNode</span></span> <span class="keyword">of</span> <code class="type"><a href="Types.html#TYPEosm_node_t">osm_node_t</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEosm_node_t"><span class="keyword">type</span> <code class="type"></code>osm_node_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.id">id</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_id">osm_id</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.latitude">latitude</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.longitude">longitude</span>&nbsp;: <code class="type">float</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.version">version</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.changeset">changeset</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.user">user</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.uid">uid</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.timestamp">timestamp</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_node_t.tags">tags</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a></code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEosm_way"><span class="keyword">type</span> <code class="type"></code>osm_way</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way.OSMWay"><span class="constructor">OSMWay</span></span> <span class="keyword">of</span> <code class="type"><a href="Types.html#TYPEosm_way_t">osm_way_t</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEosm_way_t"><span class="keyword">type</span> <code class="type"></code>osm_way_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.id">id</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_id">osm_id</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.version">version</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.changeset">changeset</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.user">user</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.uid">uid</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.timestamp">timestamp</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.tags">tags</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_way_t.nodes">nodes</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_id">osm_id</a> list</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEosm_relation_member"><span class="keyword">type</span> <code class="type"></code>osm_relation_member</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_member.OSMRelationMember"><span class="constructor">OSMRelationMember</span></span> <span class="keyword">of</span> <code class="type"><a href="Types.html#TYPEosm_relation_member_t">osm_relation_member_t</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEosm_relation_member_t"><span class="keyword">type</span> <code class="type"></code>osm_relation_member_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_member_t.ref">ref</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_id">osm_id</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_member_t.type_">type_</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_member_t.role">role</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEosm_relation"><span class="keyword">type</span> <code class="type"></code>osm_relation</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation.OSMRelation"><span class="constructor">OSMRelation</span></span> <span class="keyword">of</span> <code class="type"><a href="Types.html#TYPEosm_relation_t">osm_relation_t</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEosm_relation_t"><span class="keyword">type</span> <code class="type"></code>osm_relation_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.id">id</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_id">osm_id</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.version">version</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.changeset">changeset</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.user">user</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.uid">uid</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.timestamp">timestamp</span>&nbsp;: <code class="type">string</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.tags">tags</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_tags">osm_tags</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_relation_t.members">members</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_relation_member">osm_relation_member</a> list</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><code><span id="TYPEosm"><span class="keyword">type</span> <code class="type"></code>osm</span> = </code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code><span class="keyword">|</span></code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm.OSM"><span class="constructor">OSM</span></span> <span class="keyword">of</span> <code class="type"><a href="Types.html#TYPEosm_t">osm_t</a></code></code></td>
+
+</tr></table>
+
+
+
+<pre><code><span id="TYPEosm_t"><span class="keyword">type</span> <code class="type"></code>osm_t</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_t.nodes">nodes</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_node">osm_node</a> OSMMap.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_t.ways">ways</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_way">osm_way</a> OSMMap.t</code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTosm_t.relations">relations</span>&nbsp;: <code class="type"><a href="Types.html#TYPEosm_relation">osm_relation</a> OSMMap.t</code>;</code></td>
+
+</tr></table>
+}
+
+
+
+<pre><span id="VALempty_osm"><span class="keyword">val</span> empty_osm</span> : <code class="type"><a href="Types.html#TYPEosm">osm</a></code></pre></body></html>
