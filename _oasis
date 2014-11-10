@@ -31,8 +31,10 @@ Test test
 Document "api-osm"
   Title: API reference for Osm
   Type: ocamlbuild (0.3)
+  Install: true
   InstallDir: $htmldir/osm
   BuildTools+: ocamldoc
   XOCamlbuildPath: src/
   XOCamlbuildLibraries: osm
-  XOCamlbuildExtraArgs: -docflags -thread,-css-style,./../doc/style.css
+  XOCamlbuildExtraArgs: -docflags -thread
+  PostCommand: cp ./doc/style.css ./api-osm.docdir/style.css
