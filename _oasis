@@ -1,18 +1,19 @@
 OASISFormat: 0.4
-Name:        osm
+Name:        osm_xml
 Version:     0.0.1
 Synopsis:    OSM XML parsing library
 Authors:     Alexander Dinu
 License:     BSD-3-clause
-Plugins:     META (0.4), DevFiles (0.4)
+Plugins:     META (0.4)
 BuildTools:  ocamlbuild
-AlphaFeatures: ocamlbuild_more_args
+BuildDepends: threads, core, xmlm
 
-Library osm
+Library osm_xml
   Path: src
   Pack: true
+  Install: true
+  Findlibname: osm_xml
   Modules: Types, Parser
-  BuildDepends: threads, core, xmlm
 
 Executable test
   Path: test
@@ -20,7 +21,7 @@ Executable test
   Build$: flag(tests)
   CompiledObject: best
   Install: false
-  BuildDepends: osm, oUnit
+  BuildDepends: osm_xml, oUnit
 
 Test test
   Run$: flag(tests)
@@ -28,13 +29,12 @@ Test test
   Command: $test
   WorkingDirectory: test
 
-Document "api-osm"
-  Title: API reference for Osm
+Document api
+  Title: API reference for Osm_xml
   Type: ocamlbuild (0.3)
   Install: true
-  InstallDir: $htmldir/osm
+  InstallDir: $htmldir/osm_xml
   BuildTools+: ocamldoc
   XOCamlbuildPath: src/
-  XOCamlbuildLibraries: osm
-  XOCamlbuildExtraArgs: -docflags -thread
-  PostCommand: cp ./doc/style.css ./api-osm.docdir/style.css
+  XOCamlbuildLibraries: osm_xml
+  PostCommand: cp ./doc/style.css ./api.docdir/style.css

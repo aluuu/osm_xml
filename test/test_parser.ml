@@ -1,6 +1,6 @@
 open Core.Std
-open Osm.Parser
-open Osm.Types
+open Osm_xml.Parser
+open Osm_xml.Types
 open OUnit
 open Fixture_parser
 
@@ -20,9 +20,6 @@ let test_parse_node () =
      assert_equal node.latitude 51.5173639;
      assert_equal node.longitude (-. 0.140043);
      assert_equal (find_tag node.tags "highway") (Some "traffic_signals")
-  | Some _ ->
-     failwith "Wrong parser was given for this fixture.
-               Maybe you're using `parse_way` or `parse_relation`."
   | None ->
      failwith "Wrong fixture was given to `parse_node`."
 
@@ -38,9 +35,6 @@ let test_parse_way () =
      assert_equal (List.length way.nodes) 10;
      assert_equal (List.hd way.nodes) (Some (OSMId "822403"));
      assert_equal (List.last way.nodes) (Some (OSMId "823771"))
-  | Some _ ->
-     failwith "Wrong parser was given for this fixture.
-               Maybe you're using `parse_node` or `parse_relation`."
   | None ->
      failwith "Wrong fixture was given to `parse_way`."
 
@@ -63,9 +57,6 @@ let test_parse_relation () =
                   (Some (OSMRelationMember {type_="node";
                                             ref=OSMId "452094096";
                                             role="admin_centre"}))
-  | Some _ ->
-     failwith "Wrong parser was given for this fixture.
-               Maybe you're using `parse_node` or `parse_way`."
   | None ->
      failwith "Wrong fixture was given to `parse_relation`."
 

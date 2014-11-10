@@ -1,10 +1,9 @@
 (** Types of OSM objects *)
-
 open Core.Std
 
 type osm_id = OSMId of string
 
-module StringMap: Core.Std.Map.S
+module StringMap: Map.S
 
 type osm_tags = string StringMap.t
 
@@ -17,7 +16,7 @@ val find_tag: osm_tags -> string -> string option
 module OSMId_Comparator: Comparator.S
        with type t = osm_id
 
-module OSMMap: Core.Std.Map.S
+module OSMMap: Map.S
        with type Key.t = OSMId_Comparator.t
        with type Key.comparator_witness = OSMId_Comparator.comparator_witness
 

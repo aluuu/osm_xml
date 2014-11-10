@@ -22,9 +22,7 @@ let input_tree xml_input =
   Xmlm.input_tree ~el ~data xml_input
 
 let find_attr attrs attr =
-  let check_attr = function
-    | ((_, name), _) -> String.equal name attr
-    | _ -> false in
+  let check_attr ((_, name), _) = String.equal name attr in
   match List.find attrs check_attr with
   | Some v -> Some (snd v)
   | None -> None

@@ -5,4 +5,4 @@
 /test_osm.*
 /*.native
 /*.byte
-/api-osm.docdir
+/api.docdir
