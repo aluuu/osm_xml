@@ -13,9 +13,9 @@ Library osm
   Modules: Types, Parser
   BuildDepends: threads, core, xmlm
 
-Executable test_osm
+Executable test
   Path: test
-  MainIs: test_osm.ml
+  MainIs: test.ml
   Build$: flag(tests)
   CompiledObject: best
   Install: false
@@ -23,6 +23,6 @@ Executable test_osm
 
 Test test
   Run$: flag(tests)
-  TestTools: test_osm
-  Command: $test_osm
+  TestTools: test
+  Command: $test
   WorkingDirectory: test
