@@ -24,4 +24,3 @@ opam install ${OPAM_DEPENDS}
 eval `opam config env`
 ./configure --enable-tests
 make test
-make clean
