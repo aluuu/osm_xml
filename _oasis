@@ -37,4 +37,4 @@ Document "api-osm"
   XOCamlbuildPath: src/
   XOCamlbuildLibraries: osm
   XOCamlbuildExtraArgs: -docflags -thread
-  PostCommand: cp ./doc/style.css ./api-osm.docdir/style.css
+  PostCommand: cp ./doc/style.css ./api-osm.docdir/style.css && git checkout gh-pages && cp ./api-osm.docdir/* ./ && git add ./ && git commit -m "update api docs" && git push && git checkout master
