@@ -5,6 +5,9 @@ OSM
 
 OSM XML parsing library. Using streaming codec [Xmlm](http://erratique.ch/software/xmlm) for parsing.
 
+Documentation
+---------------------
+
 API documentation can be found [here](http://aluuu.husa.su/osm/).
 
 See the file [INSTALL.md](INSTALL.md) for building and installation
