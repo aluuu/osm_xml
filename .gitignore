@@ -3,3 +3,5 @@
 /setup.data
 /setup.log
 /test_osm.*
+/*.native
+/*.byte
