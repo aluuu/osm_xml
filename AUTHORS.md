@@ -1,3 +1,3 @@
-Authors of OSM:
+Authors of osm_xml:
 
 * Alexander Dinu
