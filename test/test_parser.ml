@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Osm_xml.Parser
 open Osm_xml.Types
 open OUnit

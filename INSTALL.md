@@ -12,7 +12,7 @@ In order to compile this package, you will need:
 * findlib
 * core for library osm_xml
 * xmlm for library osm_xml
-* oUnit for executable test
+* ounit2 for executable test
 
 Installing
 ==========

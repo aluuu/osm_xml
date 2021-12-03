@@ -23,12 +23,12 @@ true: annot, bin_annot
 <src/*.ml{,i,y}>: pkg_xmlm
 # Executable test
 <test/test.{native,byte}>: pkg_core
-<test/test.{native,byte}>: pkg_oUnit
+<test/test.{native,byte}>: pkg_ounit2
 <test/test.{native,byte}>: pkg_threads
 <test/test.{native,byte}>: pkg_xmlm
 <test/test.{native,byte}>: use_osm_xml
 <test/*.ml{,i,y}>: pkg_core
-<test/*.ml{,i,y}>: pkg_oUnit
+<test/*.ml{,i,y}>: pkg_ounit2
 <test/*.ml{,i,y}>: pkg_threads
 <test/*.ml{,i,y}>: pkg_xmlm
 <test/*.ml{,i,y}>: use_osm_xml

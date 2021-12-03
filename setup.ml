@@ -315,7 +315,7 @@ module OASISUtils = struct
 
 
   let compare_csl s1 s2 =
-    String.compare (String.lowercase s1) (String.lowercase s2)
+    String.compare (String.lowercase_ascii s1) (String.lowercase_ascii s2)
 
 
   module HashStringCsl =
@@ -324,10 +324,10 @@ module OASISUtils = struct
          type t = string
 
          let equal s1 s2 =
-             (String.lowercase s1) = (String.lowercase s2)
+             (String.lowercase_ascii s1) = (String.lowercase_ascii s2)
 
          let hash s =
-           Hashtbl.hash (String.lowercase s)
+           Hashtbl.hash (String.lowercase_ascii s)
        end)
 
   module SetStringCsl =
@@ -365,7 +365,7 @@ module OASISUtils = struct
           else
             buf
         in
-          String.lowercase buf
+          String.lowercase_ascii buf
       end
 
 
@@ -471,7 +471,7 @@ module PropList = struct
         order     = Queue.create ();
         name_norm =
           (if case_insensitive then
-             String.lowercase
+             String.lowercase_ascii
            else
              fun s -> s);
       }
@@ -1378,7 +1378,7 @@ module OASISFeatures = struct
     Map.Make
       (struct
          type t = plugin_kind * name
-         let compare = Pervasives.compare
+         let compare = compare
        end)
 
   module Data =
@@ -1822,13 +1822,13 @@ module OASISUnixPath = struct
   let capitalize_file f =
     let dir = dirname f in
     let base = basename f in
-    concat dir (String.capitalize base)
+    concat dir (String.capitalize_ascii base)
 
 
   let uncapitalize_file f =
     let dir = dirname f in
     let base = basename f in
-    concat dir (String.uncapitalize base)
+    concat dir (String.uncapitalize_ascii base)
 
 
 end
@@ -3227,7 +3227,7 @@ module BaseEnv = struct
           ([], None)
           (List.sort
              (fun (o1, _) (o2, _) ->
-                Pervasives.compare o2 o1)
+                compare o2 o1)
              lst)
       in
         match res, errors with
@@ -5845,8 +5845,8 @@ module InternalInstallPlugin = struct
     let make_fnames modul sufx =
       List.fold_right
         begin fun sufx accu ->
-          (String.capitalize modul ^ sufx) ::
-          (String.uncapitalize modul ^ sufx) ::
+          (String.capitalize_ascii modul ^ sufx) ::
+          (String.uncapitalize_ascii modul ^ sufx) ::
           accu
         end
         sufx
@@ -6970,7 +6970,7 @@ let setup_t =
                            FindlibPackage ("core", None);
                            FindlibPackage ("xmlm", None);
                            InternalLibrary "osm_xml";
-                           FindlibPackage ("oUnit", None)
+                           FindlibPackage ("ounit2", None)
                         ];
                       bs_build_tools = [ExternalTool "ocamlbuild"];
                       bs_c_sources = [];
