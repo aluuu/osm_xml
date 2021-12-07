@@ -1,5 +1,5 @@
 (** Types of OSM objects *)
-open Core.Std
+open Core
 
 type osm_id = OSMId of string
 

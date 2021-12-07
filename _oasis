@@ -21,7 +21,7 @@ Executable test
   Build$: flag(tests)
   CompiledObject: best
   Install: false
-  BuildDepends: osm_xml, oUnit
+  BuildDepends: osm_xml, ounit2
 
 Test test
   Run$: flag(tests)

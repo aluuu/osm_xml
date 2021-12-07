@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Types
 open Xmlm
 
@@ -134,7 +134,7 @@ let parse_feature ((OSM osm) as osm')
          (match parse_node xml_input with
           | None -> osm'
           | Some (OSMNode node) ->
-             OSM {nodes=OSMMap.add osm.nodes node.id (OSMNode node);
+             OSM {nodes=OSMMap.add_exn osm.nodes node.id (OSMNode node);
                   ways=osm.ways;
                   relations=osm.relations})
       | "way" when parse_ways ->
@@ -142,7 +142,7 @@ let parse_feature ((OSM osm) as osm')
           | None -> osm'
           | Some (OSMWay way) ->
              OSM {nodes=osm.nodes;
-                  ways=OSMMap.add osm.ways way.id (OSMWay way);
+                  ways=OSMMap.add_exn osm.ways way.id (OSMWay way);
                   relations=osm.relations})
       | "relation" when parse_relations ->
          (match parse_relation xml_input with
@@ -150,7 +150,7 @@ let parse_feature ((OSM osm) as osm')
           | Some (OSMRelation relation) ->
              OSM {nodes=osm.nodes;
                   ways=osm.ways;
-                  relations=OSMMap.add osm.relations relation.id
+                  relations=OSMMap.add_exn osm.relations relation.id
                                        (OSMRelation relation)})
       | _ ->
          ignore (Xmlm.input xml_input);
@@ -168,7 +168,7 @@ let parse_file ?parse_opts:(parse_opts=default_parse_opts) filename =
          let new_osm = parse_feature osm parse_opts xml_input in
          parse_file_helper xml_input new_osm
   in
-  let in_chan = open_in filename in
+  let in_chan = In_channel.create filename in
   try
     let xml_input = Xmlm.make_input (`Channel in_chan) in
     let empty_osm = OSM {nodes = OSMMap.empty;
@@ -178,5 +178,5 @@ let parse_file ?parse_opts:(parse_opts=default_parse_opts) filename =
     In_channel.close in_chan;
     osm
   with e ->
-    close_in_noerr in_chan;
+    In_channel.close in_chan;
     raise e
