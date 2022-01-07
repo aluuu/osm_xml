@@ -1,0 +1,12 @@
+(test
+ (name test)
+ (libraries core osm_xml ounit2))
+
+(rule
+ (deps
+  (source_tree samples)
+  test_parser.ml
+  fixture_parser.ml)
+ (alias runtest)
+ (action
+  (run ./test.exe)))
