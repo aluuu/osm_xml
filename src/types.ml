@@ -8,7 +8,7 @@ type osm_tags = string StringMap.t
 
 let empty_tags = StringMap.empty
 
-let add_tag tags key value= StringMap.add_exn tags key value
+let add_tag tags key data = StringMap.add_exn tags ~key ~data
 
 let find_tag tags key = StringMap.find tags key
 
