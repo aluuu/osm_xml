@@ -1,6 +1,5 @@
 open Core
 open Types
-open Xmlm
 
 type xml_tree = XMLElement of Xmlm.tag * xml_tree list | XMLData of string
 
@@ -23,7 +22,7 @@ let input_tree xml_input =
 
 let find_attr attrs attr =
   let check_attr ((_, name), _) = String.equal name attr in
-  match List.find attrs check_attr with
+  match List.find attrs ~f:check_attr with
   | Some v -> Some (snd v)
   | None -> None
 
@@ -34,7 +33,7 @@ let required_attr attrs attr =
 
 let parse_tags xml_children =
   let parse_tag tags xml_child = match xml_child with
-    | XMLElement (((_, "tag"), attrs), children) ->
+    | XMLElement (((_, "tag"), attrs), _) ->
        let k = (required_attr attrs "k") in
        let v = (required_attr attrs "v") in
        (add_tag tags k v)
@@ -64,7 +63,7 @@ let parse_way xml_input =
 
   let parse_nds xml_children =
     let parse_nd nds xml_child = match xml_child with
-      | XMLElement (((_, "nd"), attrs), children) ->
+      | XMLElement (((_, "nd"), attrs), _) ->
          let osm_id = (required_attr attrs "ref") in
          OSMId osm_id :: nds
       | _ -> nds in
@@ -92,7 +91,7 @@ let parse_relation xml_input =
 
   let parse_members xml_children =
     let parse_member members xml_child = match xml_child with
-      | XMLElement (((_, "member"), attrs), children) ->
+      | XMLElement (((_, "member"), attrs), _) ->
          let type_ = (required_attr attrs "type") in
          let osm_id = (required_attr attrs "ref") in
          let role = (required_attr attrs "role") in
@@ -134,7 +133,7 @@ let parse_feature ((OSM osm) as osm')
          (match parse_node xml_input with
           | None -> osm'
           | Some (OSMNode node) ->
-             OSM {nodes=OSMMap.add_exn osm.nodes node.id (OSMNode node);
+             OSM {nodes=OSMMap.add_exn osm.nodes ~key:node.id ~data:(OSMNode node);
                   ways=osm.ways;
                   relations=osm.relations})
       | "way" when parse_ways ->
@@ -142,7 +141,7 @@ let parse_feature ((OSM osm) as osm')
           | None -> osm'
           | Some (OSMWay way) ->
              OSM {nodes=osm.nodes;
-                  ways=OSMMap.add_exn osm.ways way.id (OSMWay way);
+                  ways=OSMMap.add_exn osm.ways ~key:way.id ~data:(OSMWay way);
                   relations=osm.relations})
       | "relation" when parse_relations ->
          (match parse_relation xml_input with
@@ -150,8 +149,8 @@ let parse_feature ((OSM osm) as osm')
           | Some (OSMRelation relation) ->
              OSM {nodes=osm.nodes;
                   ways=osm.ways;
-                  relations=OSMMap.add_exn osm.relations relation.id
-                                       (OSMRelation relation)})
+                  relations=OSMMap.add_exn osm.relations ~key:relation.id
+                                       ~data:(OSMRelation relation)})
       | _ ->
          ignore (Xmlm.input xml_input);
          osm')

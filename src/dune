@@ -1,0 +1,4 @@
+(library
+ (public_name osm_xml)
+ (name osm_xml)
+ (libraries core xmlm))
